@@ -16,6 +16,16 @@ public class Produto {
 
     private String nome;
     private Integer preco;
+    private Integer quantidade;
+    private String descricao;
+
+    @ManyToMany
+    @JoinTable(
+            name = "produto_categoria",
+            joinColumns = @JoinColumn(name = "id_produto"),
+            inverseJoinColumns = @JoinColumn(name = "id_categoria")
+    )
+    private Set<Categoria> categorias = new HashSet<>();
 
     public Integer getId_produto() {
         return id_produto;
@@ -25,12 +35,12 @@ public class Produto {
         this.id_produto = id_produto;
     }
 
-    public Set<Cliente> getClientesFavoritos() {
-        return clientesFavoritos;
+    public Set<Categoria> getCategorias() {
+        return categorias;
     }
 
-    public void setClientesFavoritos(Set<Cliente> clientesFavoritos) {
-        this.clientesFavoritos = clientesFavoritos;
+    public void setCategorias(Set<Categoria> categorias) {
+        this.categorias = categorias;
     }
 
     public String getDescricao() {
@@ -64,13 +74,6 @@ public class Produto {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    private Integer quantidade;
-    private String descricao;
-
-    @ManyToMany(mappedBy = "favoritos")
-    private Set<Cliente> clientesFavoritos = new HashSet<>();
-
-    // Getters e Setters
+// Getters e Setters
     // ...
 }
