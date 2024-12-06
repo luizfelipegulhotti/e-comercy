@@ -3,6 +3,8 @@ package com.grupointegrado.ecomercy.model;
 import jakarta.persistence.*;
 
 
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "produto")
@@ -14,8 +16,6 @@ public class Produto {
 
     private String nome;
     private Integer preco;
-    private Integer quantidade;
-    private String descricao;
 
     public Integer getId_produto() {
         return id_produto;
@@ -23,6 +23,14 @@ public class Produto {
 
     public void setId_produto(Integer id_produto) {
         this.id_produto = id_produto;
+    }
+
+    public Set<Cliente> getClientesFavoritos() {
+        return clientesFavoritos;
+    }
+
+    public void setClientesFavoritos(Set<Cliente> clientesFavoritos) {
+        this.clientesFavoritos = clientesFavoritos;
     }
 
     public String getDescricao() {
@@ -56,6 +64,13 @@ public class Produto {
     public void setNome(String nome) {
         this.nome = nome;
     }
-// Getters e Setters
+
+    private Integer quantidade;
+    private String descricao;
+
+    @ManyToMany(mappedBy = "favoritos")
+    private Set<Cliente> clientesFavoritos = new HashSet<>();
+
+    // Getters e Setters
     // ...
 }

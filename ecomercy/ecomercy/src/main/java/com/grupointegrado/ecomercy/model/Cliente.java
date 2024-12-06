@@ -2,6 +2,10 @@ package com.grupointegrado.ecomercy.model;
 
 import jakarta.persistence.*;
 
+
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -19,14 +23,6 @@ public class Cliente {
     private String senha_ct;
     private String validade_ct;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Integer getId_cliente() {
         return id_cliente;
     }
@@ -35,36 +31,20 @@ public class Cliente {
         this.id_cliente = id_cliente;
     }
 
-    public String getNome() {
-        return nome;
+    public Set<Produto> getFavoritos() {
+        return favoritos;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setFavoritos(Set<Produto> favoritos) {
+        this.favoritos = favoritos;
     }
 
-    public Integer getIdade() {
-        return idade;
+    public String getValidade_ct() {
+        return validade_ct;
     }
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setValidade_ct(String validade_ct) {
+        this.validade_ct = validade_ct;
     }
 
     public String getSenha_ct() {
@@ -83,13 +63,54 @@ public class Cliente {
         this.numero_ct = numero_ct;
     }
 
-    public String getValidade_ct() {
-        return validade_ct;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setValidade_ct(String validade_ct) {
-        this.validade_ct = validade_ct;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
-// Getters e Setters
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "favorito",
+            joinColumns = @JoinColumn(name = "id_cliente"),
+            inverseJoinColumns = @JoinColumn(name = "id_produto")
+    )
+    private Set<Produto> favoritos = new HashSet<>();
+
+    // Getters e Setters
     // ...
 }
